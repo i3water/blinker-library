@@ -35,9 +35,10 @@ WiFi:
 ```
 Blinker.begin(ssid, pswd);
 ```
-**begin()** is basically doing these steps:
-1.Configure hardware
+**begin()** is basically doing these steps:  
+1.Configure hardware  
 2.Wait for connection app  
+
 ## Connection management
 ### Blinker.connect()
 This function will try onnecting to app.  
