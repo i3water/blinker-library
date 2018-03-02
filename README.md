@@ -3,7 +3,13 @@ Blinker library for embedded hardware. Works with Arduino, ESP8266.
   
 # Currently supported hardware
 * Arduino board
-* ESP8266 based boards with [esp8266/arduino](https://github.com/esp8266/arduino)的ESP8266  
+    - Arduino Uno, Duemilanove
+    - Arduino Nano, Mini, Pro Mini, Pro Micro, Due, Mega
+* ESP8266 based boards with [esp8266/arduino](https://github.com/esp8266/arduino)  
+  
+# Connection types
+* WiFi
+* Bluetooth Smart (BLE 4.0)
   
 # Prerequisites
 You should have the following ready before beginning with any board:
@@ -130,13 +136,19 @@ Blinker.delay(500);
 ---
 # 目前支持的硬件
 * Arduino boards
-* 使用[esp8266/arduino](https://github.com/esp8266/arduino)的ESP8266  
+    - Arduino Uno, Duemilanove
+    - Arduino Nano, Mini, Pro Mini, Pro Micro, Due, Mega
+* 使用 [esp8266/arduino](https://github.com/esp8266/arduino) 的ESP8266  
+  
+# 连接类型
+* WiFi
+* Bluetooth Smart (BLE 4.0)
   
 # 准备工作
 开始使用前你需要做好如下准备:
 * [Arduino IDE 1.6.12](https://www.arduino.cc/en/Main/Software)
-* 使用Arduino IDE的开发板管理器安装 [esp8266/arduino](https://github.com/esp8266/arduino)
-* 使用Arduino IDE的库管理器安装 [WebSockets](https://github.com/Links2004/arduinoWebSockets)    
+* 使用 Arduino IDE 的开发板管理器安装 [esp8266/arduino](https://github.com/esp8266/arduino)
+* 使用 Arduino IDE 的库管理器安装 [WebSockets](https://github.com/Links2004/arduinoWebSockets)    
   
 # Blinker接口函数
 ## 设备配置
