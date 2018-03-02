@@ -95,7 +95,8 @@ uint8_t result = Blinker.slider("Slider1");
 ### Blinker.joystick()
 读取摇杆数据
 ```
-uint8_t result_x = Blinker.joystick("Joystick1", J_Xaxis);
+uint8_t result_X = Blinker.joystick("Joystick1", J_Xaxis);
+uint8_t result_Y = Blinker.joystick("Joystick1", J_Yaxis);
 ```
 ### Blinker.ahrs()
 开启手机 **AHRS** 功能
@@ -104,7 +105,9 @@ Blinker.attachAhrs();
 ```
 读取 **AHRS** 数据
 ```
-int16_t result_y = Blinker.ahrs(Yaw);
+int16_t result_Yaw = Blinker.ahrs(Yaw);
+int16_t result_Roll = Blinker.ahrs(Roll);
+int16_t result_Pitch = Blinker.ahrs(Pitch);
 ```
 关闭手机 **AHRS** 功能
 ```
