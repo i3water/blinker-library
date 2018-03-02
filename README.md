@@ -1,17 +1,143 @@
+# blinker-library
+Blinker library for embedded hardware. Works with Arduino, ESP8266.  
+  
+# Currently supported hardware
+* Arduino board
+* ESP8266 based boards with [esp8266/arduino](https://github.com/esp8266/arduino)的ESP8266  
+  
+# Prerequisites
+You should have the following ready before beginning with any board:
+* [Arduino IDE 1.6.12](https://www.arduino.cc/en/Main/Software)
+* Install the [esp8266/arduino](https://github.com/esp8266/arduino) core via the Arduino IDE Boards Manager
+* Install the [WebSockets](https://github.com/Links2004/arduinoWebSockets) library via the Arduino Library Manager  
+  
+# Blinker Api
+## Configuration
+### Blinker.begin()
+Call **Blinker.begin()** to configure Blinker:
+```
+Blinker.begin(...);
+```
+Choose different parameters based on the type of connection you use  
+  
+SerialBLE:
+```
+SerialBLE.begin(9600);  
+Blinker.begin(SerialBLE);
+```
+WiFi:
+```
+Blinker.begin(ssid, pswd);
+```
+**begin()** is basically doing these steps:
+1.Configure hardware
+2.Wait for connection app  
+## Connection management
+### Blinker.connect()
+This function will try onnecting to app.  
+Return true when connected, return false if timeout reached.  
+Default timeout is 10 seconds.
+```
+bool result = Blinker.connect();  
+  
+
+uint32_t timeout = 30000;//ms  
+bool result = Blinker.connect(timeout);
+```
+### Blinker.disconnect()
+Disconnect **Blinker** connection
+```
+Blinker.disconnect();
+```
+### Blinker.connected()
+Get the status of **Blinker** connection
+```
+bool result = Blinker.connected();
+```
+### Blinker.run()
+This function should be called frequently to process incoming commands and perform of Blinker connection. It is usually called in void loop() {}
+```
+void loop() {
+    Blinker.run();
+}
+```
+## Data management
+### Blinker.available()
+Return true when data already arrived and stored in the receive buffer
+```
+bool result = Blinker.available();
+```
+### Blinker.readString()
+This function to reads characters from Blinker into a string.
+```
+String data = Blinker.readString();
+```
+### Blinker.print()
+Prints data to Blinker app
+```
+Blinker.print(data);
+```
+Prints a Json data to Blinkrt app, eg: {text1:data}
+```
+Blinker.print(text1, data);
+```  
+## App Widgets
+### Blinker.button() 
+Device receives an update of **Button** state from app, return true when pressed, return false when released.
+```
+bool result = Blinker.button("Button1");
+```
+### Blinker.slider()
+Return the latest update of **Slider** value from app
+```
+uint8_t result = Blinker.slider("Slider1");
+```
+### Blinker.joystick()
+Return the latest update of **Joystick** value from app
+```
+uint8_t result_X = Blinker.joystick("Joystick1", J_Xaxis);
+uint8_t result_Y = Blinker.joystick("Joystick1", J_Yaxis);
+```
+### Blinker.ahrs()
+Send **AHRS** attach commond to Blinker
+```
+Blinker.attachAhrs();
+```
+Return the latest update of **AHRS** value from app
+```
+int16_t result_Yaw = Blinker.ahrs(Yaw);
+int16_t result_Roll = Blinker.ahrs(Roll);
+int16_t result_Pitch = Blinker.ahrs(Pitch);
+```
+Send **AHRS** detach commond to Blinker
+```
+Blinker.detachAhrs();
+```
+### Blinker.vibrate()
+Send vibrate commond to Blinker, default vibration time is 500 milliseconds
+```
+Blinker.vibrate();
+Blinker.vibrate(255);  
+```
+## Delay
+### Blinker.delay()
+This function can process incoming commands and perform of Blinker connection when delay
+```
+Blinker.delay(500);
+```
+  
+
+---
 # 目前支持的硬件
 * Arduino boards
 * 使用[esp8266/arduino](https://github.com/esp8266/arduino)的ESP8266  
   
----  
-
 # 准备工作
 开始使用前你需要做好如下准备:
 * [Arduino IDE 1.6.12](https://www.arduino.cc/en/Main/Software)
 * 使用Arduino IDE的开发板管理器安装 [esp8266/arduino](https://github.com/esp8266/arduino)
-* 使用Arduino IDE的库管理器安装 [WebSockets](https://github.com/Links2004/arduinoWebSockets)  
+* 使用Arduino IDE的库管理器安装 [WebSockets](https://github.com/Links2004/arduinoWebSockets)    
   
----
-
 # Blinker接口函数
 ## 设备配置
 ### Blinker.begin()
@@ -27,7 +153,7 @@ Blinker.begin(...);
 SerialBLE.begin(9600);  
 Blinker.begin(SerialBLE);
 ```
-网络模块:
+WiFi模块:
 ```
 Blinker.begin(ssid, pswd);
 ```
@@ -55,7 +181,7 @@ Blinker.disconnect();
 bool result = Blinker.connected();
 ```
 ### Blinker.run()
-需要在频繁调用以保持设备间连接及处理收到的数据, 建议放在 **loop()** 函数中
+此函数需要频繁调用以保持设备间连接及处理收到的数据, 建议放在 **loop()** 函数中
 ```
 void loop() {
     Blinker.run();
