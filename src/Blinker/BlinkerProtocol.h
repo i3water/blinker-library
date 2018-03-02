@@ -1,7 +1,7 @@
 #ifndef BlinkerProtocol_H
 #define BlinkerProtocol_H
 
-#include "BlinkerApi.h"
+#include <Blinker/BlinkerApi.h>
 
 template <class Transp>
 class BlinkerProtocol

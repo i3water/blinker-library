@@ -1,7 +1,7 @@
 #ifndef BlinkerSimpleSerialBLE_H
 #define BlinkerSimpleSerialBLE_H
 
-#include "BlinkerSerial.h"
+#include <Adapters/BlinkerSerial.h>
 
 static BlinkerTransportStream _blinkerTransport;
 BlinkerSerail Blinker(_blinkerTransport);

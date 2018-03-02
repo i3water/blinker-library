@@ -1,3 +1,17 @@
+# 目前支持的硬件
+* Arduino boards
+* 使用[esp8266/arduino](https://github.com/esp8266/arduino)的ESP8266  
+  
+---  
+
+# 准备工作
+开始使用前你需要做好如下准备:
+* [Arduino IDE 1.6.12](https://www.arduino.cc/en/Main/Software)
+* 使用Arduino IDE的开发板管理器安装 [esp8266/arduino](https://github.com/esp8266/arduino)
+* 使用Arduino IDE的库管理器安装 [WebSockets](https://github.com/Links2004/arduinoWebSockets)  
+  
+---
+
 # Blinker接口函数
 ## 设备配置
 ### Blinker.begin()

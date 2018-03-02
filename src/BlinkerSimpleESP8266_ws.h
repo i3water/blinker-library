@@ -1,8 +1,8 @@
 #ifndef BlinkerSimplerESP8266_H
 #define BlinkerSimplerESP8266_H
 
-#include "BlinkerArduinoWS.h"
-#include "BlinkerProtocol.h"
+#include <Adapters/BlinkerArduinoWS.h>
+#include <Blinker/BlinkerProtocol.h>
 #include <ESP8266mDNS.h>
 #include <ESP8266WiFi.h>
 

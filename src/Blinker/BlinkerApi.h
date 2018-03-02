@@ -1,9 +1,9 @@
 #ifndef BlinkerApi_H
 #define BlinkerApi_H
 
-#include "BlinkerConfig.h"
-#include "BlinkerDebug.h"
-#include "BlinkerUtility.h"
+#include <Blinker/BlinkerConfig.h>
+#include <utility/BlinkerDebug.h>
+#include <utility/BlinkerUtility.h>
 
 enum JoyStickAxis{
     J_Xaxis,
