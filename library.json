@@ -1,0 +1,27 @@
+{
+    "name": "Blinker",
+    "description": "Build a easy way for your project",
+    "keywords": "wifi, websocket, BLE",
+    "authors": [
+        {
+            "name": "i3water",
+            "url": "https://github.com/i3water",
+            "maintainer": true
+        }
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/i3water/blinker-library.git"
+    },
+    "version": "0.0.1",
+    "export": {
+        "exclude": [
+            "tests"
+        ]
+    },
+    "frameworks": "arduino",
+    "platforms": "*",
+    "examples": [
+        "examples/*/*.ino"
+    ]
+}

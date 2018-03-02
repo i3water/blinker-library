@@ -26,11 +26,11 @@ void loop()
 	if (Blinker.available()) {
 		BLINKER_LOG2("Blinker.readString(): ", Blinker.readString());
 
-		Blinker.Rumble();
+		Blinker.vibrate();
 		Blinker.print(millis());
 	}
 
-	if (Blinker.Button("Button1")) {
+	if (Blinker.button("Button1")) {
 		digitalWrite(BLINKER_PIN, BLINKER_ON);
 	}
 	else {

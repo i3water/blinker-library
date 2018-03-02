@@ -1,8 +1,8 @@
 #ifndef BlinkerWebSocket_H
 #define BlinkerWebSocket_H
 
-#include "BlinkerConfig.h"
-#include "BlinkerDebug.h"
+#include <Blinker/BlinkerConfig.h>
+#include <utility/BlinkerDebug.h>
 #include <WebSocketsServer.h>
 #include <Hash.h>
 
