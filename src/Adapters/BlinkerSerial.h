@@ -1,7 +1,7 @@
 #ifndef BlinkerSerial_H
 #define BlinkerSerial_H
 
-#include "BlinkerProtocol.h"
+#include <Blinker/BlinkerProtocol.h>
 
 class BlinkerTransportStream
 {
