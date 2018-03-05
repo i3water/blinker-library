@@ -28,6 +28,7 @@ void loop()
 
 		Blinker.vibrate();
 		Blinker.print(millis());
+		Blinker.print("millis", millis());
 	}
 
 	if (Blinker.button("Button1")) {

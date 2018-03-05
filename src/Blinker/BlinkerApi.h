@@ -24,7 +24,7 @@ enum AhrsAttitude{
 
 static class BlinkerButton * _Button[BLINKER_MAX_WIDGET_SIZE];
 static class BlinkerSlider * _Slider[BLINKER_MAX_WIDGET_SIZE];
-static class BlinkerJoystick * _Joystick[BLINKER_MAX_WIDGET_SIZE];
+// static class BlinkerJoystick * _Joystick[BLINKER_MAX_WIDGET_SIZE];
 
 class BlinkerButton
 {
@@ -62,26 +62,26 @@ class BlinkerSlider
         uint8_t sliderValue;
 };
 
-class BlinkerJoystick
-{
-    public :
-        BlinkerJoystick()
-            : joystickName(NULL)
-        {
-            joystickValue[J_Xaxis] = BLIKER_JOYSTICK_VALUE_DEFAULT;
-            joystickValue[J_Yaxis] = BLIKER_JOYSTICK_VALUE_DEFAULT;
-        }
+// class BlinkerJoystick
+// {
+//     public :
+//         BlinkerJoystick()
+//             : joystickName(NULL)
+//         {
+//             joystickValue[J_Xaxis] = BLIKER_JOYSTICK_VALUE_DEFAULT;
+//             joystickValue[J_Yaxis] = BLIKER_JOYSTICK_VALUE_DEFAULT;
+//         }
         
-        void name(String name) { joystickName = name; }
-        String getName() { return joystickName; }
-        void freshValue(uint8_t value, JoyStickAxis axis) { joystickValue[axis] = value; }
-        uint8_t getValue(JoyStickAxis axis) { return joystickValue[axis]; }
-        bool checkName(String name) { return ((joystickName == name) ? true : false); }
+//         void name(String name) { joystickName = name; }
+//         String getName() { return joystickName; }
+//         void freshValue(uint8_t value, JoyStickAxis axis) { joystickValue[axis] = value; }
+//         uint8_t getValue(JoyStickAxis axis) { return joystickValue[axis]; }
+//         bool checkName(String name) { return ((joystickName == name) ? true : false); }
     
-    private :
-        String  joystickName;
-        uint8_t joystickValue[2];
-};
+//     private :
+//         String  joystickName;
+//         uint8_t joystickValue[2];
+// };
 
 template <class T>
 int8_t checkNum(String name, T * c, uint8_t count)
@@ -112,6 +112,8 @@ class BlinkerApi
             // gyroValue[G_Xaxis] = 0.00;
             // gyroValue[G_Yaxis] = 0.00;
             // gyroValue[G_Zaxis] = 0.00;
+            joyValue[J_Xaxis] = BLINKER_JOYSTICK_VALUE_DEFAULT;
+            joyValue[J_Yaxis] = BLINKER_JOYSTICK_VALUE_DEFAULT;
             ahrsValue[Yaw] = 0;
             ahrsValue[Roll] = 0;
             ahrsValue[Pitch] = 0;
@@ -129,9 +131,10 @@ class BlinkerApi
                 for (uint8_t sNum = 0; sNum < _sCount; sNum++) {
                     slider(_Slider[sNum]->getName());
                 }
-                for (uint8_t jNum = 0; jNum < _jCount; jNum++) {
-                    joystick(_Joystick[jNum]->getName(), J_Xaxis);
-                }
+                // for (uint8_t jNum = 0; jNum < _jCount; jNum++) {
+                //     joystick(_Joystick[jNum]->getName(), J_Xaxis);
+                // }
+                joystick(J_Xaxis);
                 // gyro(G_Xaxis);
                 ahrs(Yaw);
 
@@ -237,26 +240,55 @@ class BlinkerApi
             }
         }
 
-        uint8_t joystick(const String & _jName, JoyStickAxis axis)
+        // uint8_t joystick(const String & _jName, JoyStickAxis axis)
+        // {
+        //     // BLINKER_LOG2("bname: ", _jName);
+        //     int8_t num = checkNum(_jName, _Joystick, _jCount);
+        //     int16_t jAxisValue = STRING_find_array_numberic_value(static_cast<Proto*>(this)->dataParse(), _jName, axis);
+
+        //     if (jAxisValue != FIND_KEY_VALUE_FAILED) {
+        //         if( num == BLINKER_OBJECT_NOT_AVAIL ) {
+        //             if ( _jCount < BLINKER_MAX_WIDGET_SIZE ) {
+        //                 _Joystick[_jCount] = new BlinkerJoystick();
+        //                 _Joystick[_jCount]->name(_jName);
+        //                 _Joystick[_jCount]->freshValue(STRING_find_array_numberic_value(static_cast<Proto*>(this)->dataParse(), _jName, J_Xaxis), J_Xaxis);
+        //                 _Joystick[_jCount]->freshValue(STRING_find_array_numberic_value(static_cast<Proto*>(this)->dataParse(), _jName, J_Yaxis), J_Yaxis);
+        //                 _jCount++;
+        //             }
+        //         }
+        //         else {
+        //             _Joystick[num]->freshValue(STRING_find_array_numberic_value(static_cast<Proto*>(this)->dataParse(), _jName, J_Xaxis), J_Xaxis);
+        //             _Joystick[num]->freshValue(STRING_find_array_numberic_value(static_cast<Proto*>(this)->dataParse(), _jName, J_Yaxis), J_Yaxis);
+        //         }
+
+        //         // static_cast<Proto*>(this)->isParsed();
+        //         _fresh = true;
+        //         // BLINKER_LOG1("slider isParsed");
+        //         return jAxisValue;
+        //     }
+        //     else {
+        //         if( num == BLINKER_OBJECT_NOT_AVAIL ) {
+        //             if ( _jCount < BLINKER_MAX_WIDGET_SIZE ) {
+        //                 _Joystick[_jCount] = new BlinkerJoystick();
+        //                 _Joystick[_jCount]->name(_jName);
+        //                 _jCount++;
+        //             }
+        //             return BLIKER_JOYSTICK_VALUE_DEFAULT;
+        //         }
+
+        //         return _Joystick[num]->getValue(axis);
+        //     }
+        // }
+
+        uint8_t joystick(JoyStickAxis axis)
         {
             // BLINKER_LOG2("bname: ", _jName);
-            int8_t num = checkNum(_jName, _Joystick, _jCount);
-            int16_t jAxisValue = STRING_find_array_numberic_value(static_cast<Proto*>(this)->dataParse(), _jName, axis);
+            // int8_t num = checkNum(_jName, _Joystick, _jCount);
+            int16_t jAxisValue = STRING_find_array_numberic_value(static_cast<Proto*>(this)->dataParse(), BLINKER_CMD_JOYSTICK, axis);
 
             if (jAxisValue != FIND_KEY_VALUE_FAILED) {
-                if( num == BLINKER_OBJECT_NOT_AVAIL ) {
-                    if ( _jCount < BLINKER_MAX_WIDGET_SIZE ) {
-                        _Joystick[_jCount] = new BlinkerJoystick();
-                        _Joystick[_jCount]->name(_jName);
-                        _Joystick[_jCount]->freshValue(STRING_find_array_numberic_value(static_cast<Proto*>(this)->dataParse(), _jName, J_Xaxis), J_Xaxis);
-                        _Joystick[_jCount]->freshValue(STRING_find_array_numberic_value(static_cast<Proto*>(this)->dataParse(), _jName, J_Yaxis), J_Yaxis);
-                        _jCount++;
-                    }
-                }
-                else {
-                    _Joystick[num]->freshValue(STRING_find_array_numberic_value(static_cast<Proto*>(this)->dataParse(), _jName, J_Xaxis), J_Xaxis);
-                    _Joystick[num]->freshValue(STRING_find_array_numberic_value(static_cast<Proto*>(this)->dataParse(), _jName, J_Yaxis), J_Yaxis);
-                }
+                joyValue[J_Xaxis] = STRING_find_array_numberic_value(static_cast<Proto*>(this)->dataParse(), BLINKER_CMD_JOYSTICK, J_Xaxis);
+                joyValue[J_Yaxis] = STRING_find_array_numberic_value(static_cast<Proto*>(this)->dataParse(), BLINKER_CMD_JOYSTICK, J_Yaxis);
 
                 // static_cast<Proto*>(this)->isParsed();
                 _fresh = true;
@@ -264,16 +296,7 @@ class BlinkerApi
                 return jAxisValue;
             }
             else {
-                if( num == BLINKER_OBJECT_NOT_AVAIL ) {
-                    if ( _jCount < BLINKER_MAX_WIDGET_SIZE ) {
-                        _Joystick[_jCount] = new BlinkerJoystick();
-                        _Joystick[_jCount]->name(_jName);
-                        _jCount++;
-                    }
-                    return BLIKER_JOYSTICK_VALUE_DEFAULT;
-                }
-
-                return _Joystick[num]->getValue(axis);
+                return joyValue[axis];
             }
         }
 
@@ -382,8 +405,9 @@ class BlinkerApi
     private :
         uint8_t _bCount = 0;
         uint8_t _sCount = 0;
-        uint8_t _jCount = 0;
+        // uint8_t _jCount = 0;
         // float   gyroValue[3];
+        uint8_t joyValue[2];
         int16_t ahrsValue[3];
         bool    _fresh = false;
 };

@@ -27,7 +27,7 @@ String STRING_format(T& p)
     return String(p);
 }
 
-#ifdef ESP8266
+#if defined(ESP8266)
 extern "C" {
 	#include "user_interface.h"
 }
@@ -35,16 +35,45 @@ extern "C" {
 String macDeviceName()
 {
 	uint8_t mac[6];
-	char macStr[12] = { 0 };
+	char macStr[13] = { 0 };
 	#define STATION_IF 0x00
     wifi_get_macaddr(STATION_IF, mac);
 
     sprintf(macStr, "%02X%02X%02X%02X%02X%02X", mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
 	String macStr_l = STRING_format(macStr);
     //macStr_l.toLowerCase();
+    //BLINKER_LOG2("MACADDR: ", macStr_l);
+    return macStr_l;
+}
+#elif defined(ESP32)
+#include "esp_wifi.h"
+
+String macDeviceName()
+{
+	uint8_t mac[6];
+	char macStr[13] = { 0 };
+	// #define WIFI_IF_STA 0x00
+    esp_wifi_get_mac(WIFI_IF_STA, mac);
+
+    sprintf(macStr, "%02X%02X%02X%02X%02X%02X", mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
+	String macStr_l = STRING_format(macStr);
+    //macStr_l.toLowerCase();
+    //BLINKER_LOG2("MACADDR: ", macStr_l);
     return macStr_l;
 }
 #endif
+
+template<class T>
+const T& BlinkerMin(const T& a, const T& b)
+{
+    return (b < a) ? b : a;
+}
+
+template<class T>
+const T& BlinkerMax(const T& a, const T& b)
+{
+    return (b < a) ? a : b;
+}
 
 // String STRING_find_string(String src, String targetStart, String targetEnd, uint8_t skipNum) {
 //     int addr_start = src.indexOf(targetStart);
@@ -91,10 +120,10 @@ int16_t STRING_find_numberic_value(const String & src, const String & key)
 
     int addr_end1 = src.indexOf(NUMBERIC_VALUE_END_1, addr_start + keyLen + NUMBERIC_VALUE_SKIP);
     int addr_end2 = src.indexOf(NUMBERIC_VALUE_END_2, addr_start + keyLen + NUMBERIC_VALUE_SKIP);
-    int addr_end = min(addr_end1, addr_end2);
+    int addr_end = BlinkerMin(addr_end1, addr_end2);
 
     if (addr_end == -1) {
-        addr_end = max(addr_end1, addr_end2);
+        addr_end = BlinkerMax(addr_end1, addr_end2);
     }
 
     if (addr_start == -1 || addr_end == -1) {
@@ -123,10 +152,10 @@ int16_t STRING_find_array_numberic_value(const String & src, const String & key,
         for (uint8_t times = 0; times < num; ++times) {
             value_start1 = src.indexOf(ARRAY_NUMBERIC_VALUE_END_1, addr_start);
             value_start2 = src.indexOf(ARRAY_NUMBERIC_VALUE_END_2, addr_start);
-            temp = min(value_start1, value_start2);
+            temp = BlinkerMin(value_start1, value_start2);
 
             if(temp == -1) {
-                temp = max(value_start1, value_start2);
+                temp = BlinkerMax(value_start1, value_start2);
             }
 
             addr_start = temp + ARRAY_NUMBERIC_VALUE_SKIP_IN;
@@ -135,10 +164,10 @@ int16_t STRING_find_array_numberic_value(const String & src, const String & key,
 
     int addr_end1 = src.indexOf(ARRAY_NUMBERIC_VALUE_END_1, addr_start);
     int addr_end2 = src.indexOf(ARRAY_NUMBERIC_VALUE_END_2, addr_start);
-    int addr_end = min(addr_end1, addr_end2);
+    int addr_end = BlinkerMin(addr_end1, addr_end2);
 
     if (addr_end == -1) {
-        addr_end = max(addr_end1, addr_end2);
+        addr_end = BlinkerMax(addr_end1, addr_end2);
     }
 
     if (addr_start == -1 || addr_end == -1) {
@@ -166,10 +195,10 @@ float STRING_find_array_float_value(const String & src, const String & key, uint
         for (uint8_t times = 0; times < num; ++times) {
             value_start1 = src.indexOf(ARRAY_NUMBERIC_VALUE_END_1, addr_start);
             value_start2 = src.indexOf(ARRAY_NUMBERIC_VALUE_END_2, addr_start);
-            temp = min(value_start1, value_start2);
+            temp = BlinkerMin(value_start1, value_start2);
 
             if(temp == -1) {
-                temp = max(value_start1, value_start2);
+                temp = BlinkerMax(value_start1, value_start2);
             }
 
             addr_start = temp + ARRAY_NUMBERIC_VALUE_SKIP_IN;
@@ -178,10 +207,10 @@ float STRING_find_array_float_value(const String & src, const String & key, uint
 
     int addr_end1 = src.indexOf(ARRAY_NUMBERIC_VALUE_END_1, addr_start);
     int addr_end2 = src.indexOf(ARRAY_NUMBERIC_VALUE_END_2, addr_start);
-    int addr_end = min(addr_end1, addr_end2);
+    int addr_end = BlinkerMin(addr_end1, addr_end2);
 
     if (addr_end == -1) {
-        addr_end = max(addr_end1, addr_end2);
+        addr_end = BlinkerMax(addr_end1, addr_end2);
     }
 
     if (addr_start == -1 || addr_end == -1) {

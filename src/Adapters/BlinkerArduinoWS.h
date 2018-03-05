@@ -4,7 +4,7 @@
 #include <Blinker/BlinkerConfig.h>
 #include <utility/BlinkerDebug.h>
 #include <WebSocketsServer.h>
-#include <Hash.h>
+// #include <Hash.h>
 
 #define WS_SERVERPORT                       81
 WebSocketsServer webSocket = WebSocketsServer(WS_SERVERPORT);
@@ -57,7 +57,7 @@ static void webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t
             break;
         case WStype_BIN:
             // BLINKER_LOG4("num: ", num, " get binary length: ", length);
-            hexdump(payload, length);
+            // hexdump(payload, length);
 
             // send message to client
             // webSocket.sendBIN(num, payload, length);

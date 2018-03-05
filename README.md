@@ -6,6 +6,7 @@ Blinker library for embedded hardware. Works with Arduino, ESP8266.
     - Arduino Uno, Duemilanove
     - Arduino Nano, Mini, Pro Mini, Pro Micro, Due, Mega
 * ESP8266 based boards with [esp8266/arduino](https://github.com/esp8266/arduino)  
+* ESP32 based board with [espressif/arduino-esp32](https://github.com/espressif/arduino-esp32)  
   
 # Connection types
 * WiFi
@@ -13,7 +14,7 @@ Blinker library for embedded hardware. Works with Arduino, ESP8266.
   
 # Prerequisites
 You should have the following ready before beginning with any board:
-* [Arduino IDE 1.6.12](https://www.arduino.cc/en/Main/Software)
+* [Arduino IDE](https://www.arduino.cc/en/Main/Software) 1.6.12 or later
 * Install the [esp8266/arduino](https://github.com/esp8266/arduino) core via the Arduino IDE Boards Manager
 * Install the [WebSockets](https://github.com/Links2004/arduinoWebSockets) library via the Arduino Library Manager  
   
@@ -102,8 +103,8 @@ uint8_t result = Blinker.slider("Slider1");
 ### Blinker.joystick()
 Return the latest update of **Joystick** value from app
 ```
-uint8_t result_X = Blinker.joystick("Joystick1", J_Xaxis);
-uint8_t result_Y = Blinker.joystick("Joystick1", J_Yaxis);
+uint8_t result_X = Blinker.joystick(J_Xaxis);
+uint8_t result_Y = Blinker.joystick(J_Yaxis);
 ```
 ### Blinker.ahrs()
 Send **AHRS** attach commond to Blinker
@@ -140,6 +141,7 @@ Blinker.delay(500);
     - Arduino Uno, Duemilanove
     - Arduino Nano, Mini, Pro Mini, Pro Micro, Due, Mega
 * 使用 [esp8266/arduino](https://github.com/esp8266/arduino) 的ESP8266  
+* 使用 [espressif/arduino-esp32](https://github.com/espressif/arduino-esp32) 的ESP32  
   
 # 连接类型
 * WiFi
@@ -147,7 +149,7 @@ Blinker.delay(500);
   
 # 准备工作
 开始使用前你需要做好如下准备:
-* [Arduino IDE 1.6.12](https://www.arduino.cc/en/Main/Software)
+* [Arduino IDE](https://www.arduino.cc/en/Main/Software) 1.6.12及更新版本
 * 使用 Arduino IDE 的开发板管理器安装 [esp8266/arduino](https://github.com/esp8266/arduino)
 * 使用 Arduino IDE 的库管理器安装 [WebSockets](https://github.com/Links2004/arduinoWebSockets)    
   
@@ -234,8 +236,8 @@ uint8_t result = Blinker.slider("Slider1");
 ### Blinker.joystick()
 读取摇杆数据
 ```
-uint8_t result_X = Blinker.joystick("Joystick1", J_Xaxis);
-uint8_t result_Y = Blinker.joystick("Joystick1", J_Yaxis);
+uint8_t result_X = Blinker.joystick(J_Xaxis);
+uint8_t result_Y = Blinker.joystick(J_Yaxis);
 ```
 ### Blinker.ahrs()
 开启手机 **AHRS** 功能

@@ -25,6 +25,8 @@
 
 #define BLINKER_CMD_OFF                 "off"
 
+#define BLINKER_CMD_JOYSTICK            "joy"
+
 #define BLINKER_CMD_GYRO                "gyro"
 
 #define BLINKER_CMD_AHRS                "ahrs"
@@ -37,6 +39,6 @@
 
 #define BLINKER_CMD_NEWLINE             "\n"
 
-#define BLIKER_JOYSTICK_VALUE_DEFAULT   128
+#define BLINKER_JOYSTICK_VALUE_DEFAULT  128
 
 #endif
