@@ -16,6 +16,7 @@ Blinker library for embedded hardware. Works with Arduino, ESP8266.
 You should have the following ready before beginning with any board:
 * [Arduino IDE](https://www.arduino.cc/en/Main/Software) 1.6.12 or later
 * Install the [esp8266/arduino](https://github.com/esp8266/arduino) core via the Arduino IDE Boards Manager
+* Install the [espressif/arduino-esp32](https://github.com/espressif/arduino-esp32) cora following [Installation Instructions](https://github.com/espressif/arduino-esp32#installation-instructions) 
 * Install the [WebSockets](https://github.com/Links2004/arduinoWebSockets) library via the Arduino Library Manager  
   
 # Blinker Api
@@ -151,6 +152,7 @@ Blinker.delay(500);
 开始使用前你需要做好如下准备:
 * [Arduino IDE](https://www.arduino.cc/en/Main/Software) 1.6.12及更新版本
 * 使用 Arduino IDE 的开发板管理器安装 [esp8266/arduino](https://github.com/esp8266/arduino)
+* 按照 [安装说明](https://github.com/espressif/arduino-esp32#installation-instructions) 安装 [espressif/arduino-esp32](https://github.com/espressif/arduino-esp32)
 * 使用 Arduino IDE 的库管理器安装 [WebSockets](https://github.com/Links2004/arduinoWebSockets)    
   
 # Blinker接口函数

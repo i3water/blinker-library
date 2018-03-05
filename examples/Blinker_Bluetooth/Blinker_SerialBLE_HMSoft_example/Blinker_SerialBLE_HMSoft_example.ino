@@ -37,8 +37,10 @@ void loop()
 		BLINKER_LOG2("Blinker.readString(): ", Blinker.readString());
 
 		Blinker.vibrate();
-		Blinker.print(millis());
-		Blinker.print("millis", millis());
+
+		uint32_t BlinkerTime = millis();
+		Blinker.print(BlinkerTime);
+		Blinker.print("millis", BlinkerTime);
 	}
 
 	if (Blinker.button("Button1")) {

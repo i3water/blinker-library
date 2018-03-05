@@ -22,6 +22,6 @@
     "frameworks": "arduino",
     "platforms": "*",
     "examples": [
-        "examples/*/*.ino"
+        "examples/*/*/*.ino"
     ]
 }
