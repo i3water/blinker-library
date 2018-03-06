@@ -1,5 +1,5 @@
 # blinker-library
-Blinker library for embedded hardware. Works with Arduino, ESP8266.  
+Blinker library for embedded hardware. Works with Arduino, ESP8266, ESP32.  
   
 # Currently supported hardware
 * Arduino board
@@ -92,7 +92,7 @@ Blinker.print(text1, data);
 ```  
 ## App Widgets
 ### Blinker.button() 
-Device receives an update of **Button** state from app, return true when pressed, return false when released.
+Device receives an update of **Button** state from app, return true when **Pressed**, return false when **Released**.
 ```
 bool result = Blinker.button("Button1");
 ```
@@ -226,7 +226,7 @@ Blinker.print(text1, data);
 ```  
 ## App Widgets
 ### Blinker.button() 
-读取开关/按键数据
+读取开关/按键数据, 按下(Pressed)时返回true, 松开(Released)时返回false
 ```
 bool result = Blinker.button("Button1");
 ```

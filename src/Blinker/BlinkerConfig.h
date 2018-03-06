@@ -15,9 +15,9 @@
 #define BLINKER_BUFFER_SIZE             256
 #endif
 
-// #define  BLINKER_NO_LOGO
+#define  BLINKER_NO_LOGO
 
-#define BLINKER_LOGO_3D
+//#define BLINKER_LOGO_3D
 
 // #define	BLINKER_DEBUG
 

@@ -1,7 +1,7 @@
 {
     "name": "Blinker",
-    "description": "Build a easy way for your project",
-    "keywords": "wifi, websocket, BLE",
+    "description": "Blinker library for embedded hardware. Works with Arduino, ESP8266, ESP32.",
+    "keywords": "wifi, websocket, Bluetooth",
     "authors": [
         {
             "name": "i3water",

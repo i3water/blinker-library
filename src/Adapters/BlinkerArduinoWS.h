@@ -1,17 +1,16 @@
 #ifndef BlinkerWebSocket_H
 #define BlinkerWebSocket_H
 
-#include <Blinker/BlinkerConfig.h>
-#include <utility/BlinkerDebug.h>
+#include <Blinker/BlinkerProtocol.h>
 #include <WebSocketsServer.h>
 // #include <Hash.h>
 
 #define WS_SERVERPORT                       81
 WebSocketsServer webSocket = WebSocketsServer(WS_SERVERPORT);
 
-static char     *msgBuf;
-static bool     isConnect = false;
-static uint16_t buflen = 0;
+static char msgBuf[BLINKER_BUFFER_SIZE];
+static bool isConnect = false;
+static bool isAvail = false;
 
 static void webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t length)
 {
@@ -34,7 +33,7 @@ static void webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t
 #endif
 
                 // send message to client
-                // webSocket.sendTXT(num, "Connected");
+                webSocket.sendTXT(num, "{\"state\":\"connected\"}");
 
                 isConnect = true;
             }
@@ -44,10 +43,13 @@ static void webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t
 #ifdef BLINKER_DEBUG_ALL
             BLINKER_LOG6("num: ", num, ", get Text: ", (char *)payload, ", length: ", length);
 #endif
-            
-            msgBuf = (char*)malloc((length+1)*sizeof(char));
-            memcpy (msgBuf, (char*)payload, length);
-            buflen = length;
+            if (length < BLINKER_BUFFER_SIZE) {
+                // msgBuf = (char*)malloc((length+1)*sizeof(char));
+                // memcpy (msgBuf, (char*)payload, length);
+                // buflen = length;
+                strcpy(msgBuf, (char*)payload);
+                isAvail = true;
+            }
 
             // send message to client
             // webSocket.sendTXT(num, "message here");
@@ -78,15 +80,11 @@ class BlinkerArduinoWS
             BLINKER_LOG4("ws://", deviceName, ".local:", WS_SERVERPORT);
         }
 
-        bool available(char *data)
+        bool available()
         {
             webSocket.loop();
-            if (buflen) {
-                memset(data, 0, BLINKER_BUFFER_SIZE);
-                memcpy(data, msgBuf, buflen);
-
-                free(msgBuf);
-                buflen = 0;
+            if (isAvail) {
+                isAvail = false;
 
                 return true;
             }
@@ -94,6 +92,8 @@ class BlinkerArduinoWS
                 return false;
             }
         }
+
+        String lastRead() { return STRING_format(msgBuf); }
 
         void print(String s)
         {

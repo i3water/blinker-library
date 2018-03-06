@@ -55,7 +55,7 @@ class BlinkerProtocol
         {
             if (isFresh) {
                 isFresh = false;
-                return STRING_format(lastread);
+                return conn.lastRead();
             }
             else {
                 return "";
@@ -104,7 +104,7 @@ class BlinkerProtocol
     private :
         bool checkAvail()
         {
-            isAvail = conn.available(lastread);
+            isAvail = conn.available();
             if (isAvail) {
                 isFresh = true;
                 canParse = true;
@@ -115,7 +115,7 @@ class BlinkerProtocol
         String dataParse()
         {
             if (canParse) {
-                return STRING_format(lastread);
+                return conn.lastRead();
             }
             else {
                 return "";
@@ -132,7 +132,6 @@ class BlinkerProtocol
         bool            isFresh;
         bool            isAvail;
         bool            canParse;
-        char            lastread[BLINKER_BUFFER_SIZE];
         
         void begin()
         {

@@ -10,10 +10,10 @@ class BlinkerTransportStream
             : stream(NULL), isConnect(false)
         {}
 
-        bool available(char *data)
+        bool available()
         {
             if (stream->available()) {
-                strcpy(data, (stream->readString()).c_str());
+                strcpy(streamData, (stream->readString()).c_str());
 #ifdef BLINKER_DEBUG_ALL
                 BLINKER_LOG2(BLINKER_F("handleSerial: "), data);
 #endif
@@ -60,6 +60,7 @@ class BlinkerTransportStream
     
     protected :
         Stream* stream;
+        char    streamData[BLINKER_BUFFER_SIZE];
         bool    isConnect;
 };
 

@@ -2,7 +2,6 @@
 #define BlinkerSimplerESP32_H
 
 #include <Adapters/BlinkerArduinoWS.h>
-#include <Blinker/BlinkerProtocol.h>
 #include <ESPmDNS.h>
 #include <WiFi.h>
 
@@ -29,9 +28,7 @@ class BlinkerSimpleESP32_WS
             
             MDNS.addService("DiyArduino", "tcp", WS_SERVERPORT);
 
-            this->conn.begin(macDeviceName());//WiFi.macAddress()
-            // BLINKER_LOG1(BLINKER_F("webSocket server started"));
-            // BLINKER_LOG4("ws://", macDeviceName(), ".local:", WS_SERVERPORT);
+            this->conn.begin(macDeviceName());
         }
 
         void connectWiFi(const char* ssid, const char* pswd)
