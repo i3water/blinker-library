@@ -5,7 +5,7 @@
 
 #define BLINKER_CONNECT_TIMEOUT_MS      10000UL
 
-#define BLINKER_STREAM_TIMEOUT          10
+#define BLINKER_STREAM_TIMEOUT          100
 
 #define BLINKER_MAX_WIDGET_SIZE         16
 

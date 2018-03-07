@@ -243,11 +243,16 @@ class BlinkerApi
                         break;
                     }
                     else {
-                        if (millis() - startTime > BLINKER_CONNECT_TIMEOUT_MS) {
-                            BLINKER_LOG1("AHRS attach failed...Try again");
-                            startTime = millis();
-                            static_cast<Proto*>(this)->print(BLINKER_CMD_AHRS, BLINKER_CMD_ON);
-                        }
+                        BLINKER_LOG1("AHRS attach failed...Try again");
+                        startTime = millis();
+                        static_cast<Proto*>(this)->print(BLINKER_CMD_AHRS, BLINKER_CMD_ON);
+                    }
+                }
+                else {
+                    if (millis() - startTime > BLINKER_CONNECT_TIMEOUT_MS) {
+                        BLINKER_LOG1("AHRS attach failed...Try again");
+                        startTime = millis();
+                        static_cast<Proto*>(this)->print(BLINKER_CMD_AHRS, BLINKER_CMD_ON);
                     }
                 }
             }

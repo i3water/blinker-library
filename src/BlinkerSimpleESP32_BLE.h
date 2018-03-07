@@ -6,6 +6,7 @@
 #include <BLEDevice.h>
 #include <BLEUtils.h>
 #include <BLEServer.h>
+#include <BLE2902.h>
 
 // #define SERVICE_UUID        "0000ffe0-1fb5-459e-8fcc-c5c9c331914b"
 // #define CHARACTERISTIC_UUID "0000ffe1-36e1-4688-b7f5-ea07361b26a8"
@@ -37,6 +38,8 @@ class BlinkerTransportESP32_BLE
 
             pCharacteristic->setCallbacks(this);
 
+            pCharacteristic->addDescriptor(new BLE2902());
+            
             pCharacteristic->setValue("Blinker");
             pService->start();
 
@@ -61,11 +64,13 @@ class BlinkerTransportESP32_BLE
 
         bool available()
         {
+            checkTimeOut();
             if (isAvail) {
 #ifdef BLINKER_DEBUG_ALL
                 BLINKER_LOG2(BLINKER_F("handleBLE: "), BLEBuf);//
 #endif
                 isAvail = false;
+                isFresh = false;
 
                 return true;
             }
@@ -85,6 +90,7 @@ class BlinkerTransportESP32_BLE
                 BLINKER_LOG1(BLINKER_F("Succese..."));
 #endif
                 pCharacteristic->setValue(s.c_str());
+                pCharacteristic->notify();
             }
             else {
 #ifdef BLINKER_DEBUG_ALL
@@ -93,7 +99,7 @@ class BlinkerTransportESP32_BLE
             }
         }
 
-        bool connect() { return deviceConnected = true; }
+        bool connect() { return deviceConnected; }
 
         void disconnect() { deviceConnected = false; }
 
@@ -103,7 +109,8 @@ class BlinkerTransportESP32_BLE
         bool                    deviceConnected;
         char                    BLEBuf[BLINKER_BUFFER_SIZE];
         bool                    isAvail;
-        String                  BLEStr;
+        bool                    isFresh;
+        uint32_t                freshTime;
         BLEServer               *pServer;
         BLEService              *pService;
         BLECharacteristic       *pCharacteristic;
@@ -128,29 +135,25 @@ class BlinkerTransportESP32_BLE
             std::string value = pCharacteristic->getValue();
 
             if (value.length() > 0) {
-                // BLEStr += value;
-                char *data;
-                uint8_t len = value.length();
-                data = (char*)malloc((len+1)*sizeof(char));
-                strcpy(data, value.c_str());
-                // BLINKER_LOG2("data: ", String(data));
-                BLEStr += String(data);
+                freshTime = millis();
 
-                if (STRING_contais_string(BLEStr, BLINKER_CMD_NEWLINE)) {
-                    // BLINKER_LOG2("BLEStr: ", BLEStr);
-                    strcpy(BLEBuf, BLEStr.c_str());
-                    BLINKER_LOG2("BLEBuf: ", BLEBuf);
-                    BLEStr = "";
-                    isAvail = true;
+                if (!isFresh) {
+                    strcpy(BLEBuf, value.c_str());
+                    isFresh = true;
+                }
+                else {
+                    strcat(BLEBuf, value.c_str());
                 }
 
-                // Serial.println("*********");
-                // Serial.print("New value: ");
-                // for (int i = 0; i < value.length(); i++)
-                //     Serial.print(value[i]);
+                if (String(value.c_str()).endsWith("\n")) {
+                    isAvail = true;
+                }
+            }
+        }
 
-                // Serial.println();
-                // Serial.println("*********");
+        void checkTimeOut() {
+            if (isFresh && !isAvail && (millis() - freshTime) > BLINKER_STREAM_TIMEOUT) {
+                isAvail = true;
             }
         }
 };
