@@ -1,6 +1,8 @@
 #define	BLINKER_PRINT	Serial
 #define BLINKER_WIFI
 
+#define SLIDER_1        "SliderKey"
+
 #include <Blinker.h>
 
 char ssid[] = "<Your WiFi network SSID or name>";
@@ -30,7 +32,7 @@ void loop()
 		Blinker.print("millis", BlinkerTime);
 	}
 
-	BLINKER_LOG2("Slider read: ", Blinker.slider("Slider1"));
+	BLINKER_LOG2("Slider read: ", Blinker.slider(SLIDER_1));
 
     Blinker.delay(2000);
 }

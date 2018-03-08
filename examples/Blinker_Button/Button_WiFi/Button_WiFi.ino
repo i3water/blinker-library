@@ -1,6 +1,8 @@
 #define	BLINKER_PRINT	Serial
 #define BLINKER_WIFI
 
+#define BUTTON_1		"ButtonKey"
+
 #include <Blinker.h>
 
 char ssid[] = "<Your WiFi network SSID or name>";
@@ -30,7 +32,7 @@ void loop()
 		Blinker.print("millis", BlinkerTime);
 	}
 
-	if (Blinker.button("Button1")) {
+	if (Blinker.button(BUTTON_1)) {
 		digitalWrite(LED_BUILTIN, HIGH);
 	}
 	else {

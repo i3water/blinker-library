@@ -1,6 +1,8 @@
 #define	BLINKER_PRINT	Serial
 #define BLINKER_BLE
 
+#define SLIDER_1		"SliderKey"
+
 #include <Blinker.h>
 
 void setup()
@@ -27,7 +29,7 @@ void loop()
 		Blinker.print("millis", BlinkerTime);
 	}
 
-	BLINKER_LOG2("Slider read: ", Blinker.slider("Slider1"));
+	BLINKER_LOG2("Slider read: ", Blinker.slider(SLIDER_1));
 
     Blinker.delay(2000);
 }
