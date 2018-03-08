@@ -7,6 +7,7 @@
 #include <Blinker/BlinkerProtocol.h>
 
 SoftwareSerial SerialBLE(SERIAL_BLE_RX_PIN, SERIAL_BLE_TX_PIN);
+// SoftwareSerial *SerialBLE;//TODO
 
 class BlinkerTransportStream
 {
@@ -81,10 +82,16 @@ class BlinkerSerail
             : Base(transp)
         {}
 
+        // void begin(uint8_t rx_pin = SERIAL_BLE_RX_PIN,
+        //             uint8_t tx_pin = SERIAL_BLE_TX_PIN,
+        //             uint32_t baud = SERIAL_BLE_Baud)
         void begin()
         {
             Base::begin();
             SerialBLE.begin(SERIAL_BLE_Baud);
+            // SerialBLE = new SoftwareSerial(rx_pin, tx_pin);
+            // SerialBLE->begin(baud);//TODO
+            // this->conn.begin(*SerialBLE);
             this->conn.begin(SerialBLE);
             BLINKER_LOG1("SerialBLE Initialled...");
         }
