@@ -1,15 +1,5 @@
 #define BLINKER_PRINT	Serial
 
-#if defined(ESP8266)
-#define	BLINKER_PIN		BUILTIN_LED
-#define	BLINKER_ON		LOW
-#define	BLINKER_OFF		HIGH
-#else
-#define	BLINKER_PIN		13
-#define	BLINKER_ON		HIGH
-#define	BLINKER_OFF		LOW
-#endif
-
 #include <SoftwareSerial.h>
 
 #define SBLE_RX_PIN		2
@@ -22,8 +12,8 @@ void setup()
 {
 	Serial.begin(115200);
 
-	pinMode(BLINKER_PIN, OUTPUT);
-	digitalWrite(BLINKER_PIN, BLINKER_OFF);
+	pinMode(LED_BUILTIN, OUTPUT);
+	digitalWrite(LED_BUILTIN, LOW);
 
 	SerialBLE.begin(9600);
 	Blinker.begin(SerialBLE);
@@ -44,9 +34,9 @@ void loop()
 	}
 
 	if (Blinker.button("Button1")) {
-		digitalWrite(BLINKER_PIN, BLINKER_ON);
+		digitalWrite(LED_BUILTIN, HIGH);
 	}
 	else {
-		digitalWrite(BLINKER_PIN, BLINKER_OFF);
+		digitalWrite(LED_BUILTIN, LOW);
 	}
 }

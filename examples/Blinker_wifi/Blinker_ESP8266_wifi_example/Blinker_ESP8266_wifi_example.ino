@@ -1,9 +1,5 @@
 #define BLINKER_PRINT	Serial
 
-#define	BLINKER_PIN		BUILTIN_LED
-#define	BLINKER_ON		LOW
-#define	BLINKER_OFF		HIGH
-
 #include <BlinkerSimpleESP8266_WS.h>
 
 char ssid[] = "<Your WiFi network SSID or name>";
@@ -13,8 +9,8 @@ void setup()
 {
 	Serial.begin(115200);
 
-	pinMode(BLINKER_PIN, OUTPUT);
-	digitalWrite(BLINKER_PIN, BLINKER_OFF);
+	pinMode(LED_BUILTIN, OUTPUT);
+	digitalWrite(LED_BUILTIN, HIGH);
 
 	Blinker.begin(ssid, pswd);
 }
@@ -34,9 +30,9 @@ void loop()
 	}
 
 	if (Blinker.button("Button1")) {
-		digitalWrite(BLINKER_PIN, BLINKER_ON);
+		digitalWrite(LED_BUILTIN, LOW);
 	}
 	else {
-		digitalWrite(BLINKER_PIN, BLINKER_OFF);
+		digitalWrite(LED_BUILTIN, HIGH);
 	}
 }

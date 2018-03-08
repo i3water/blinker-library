@@ -7,7 +7,7 @@ Blinker library for embedded hardware. Works with Arduino, ESP8266, ESP32.
 
   
 # Currently supported hardware
-* Arduino board
+* Arduino boards
     - Arduino Uno, Duemilanove
     - Arduino Nano, Mini, Pro Mini, Pro Micro, Due, Mega
 * ESP8266 based boards with [esp8266/arduino](https://github.com/esp8266/arduino)  
