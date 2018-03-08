@@ -15,7 +15,7 @@ class BlinkerTransportStream
             if (stream->available()) {
                 strcpy(streamData, (stream->readString()).c_str());
 #ifdef BLINKER_DEBUG_ALL
-                BLINKER_LOG2(BLINKER_F("handleSerial: "), data);
+                BLINKER_LOG2(BLINKER_F("handleSerial: "), streamData);
 #endif
                 return true;
             }
@@ -29,6 +29,8 @@ class BlinkerTransportStream
             stream = &s;
             stream->setTimeout(BLINKER_STREAM_TIMEOUT);
         }
+
+        String lastRead() { return STRING_format(streamData); }
 
         void print(String s)
         {
@@ -78,7 +80,7 @@ class BlinkerSerail
         {
             Base::begin();
             this->conn.begin(stream);
-            BLINKER_LOG1("SerialBLE Initialled...")
+            BLINKER_LOG1("SerialBLE Initialled...");
         }
 };
 
