@@ -172,7 +172,7 @@ class BlinkerESP32_BLE
         {
             Base::begin();
             this->conn.begin();
-            BLINKER_LOG1("BlinkerESP32_BLE Initialled...");
+            BLINKER_LOG1("ESP32_BLE Initialled...");
         }
 };
 

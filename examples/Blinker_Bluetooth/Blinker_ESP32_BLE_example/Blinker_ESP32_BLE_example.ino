@@ -1,8 +1,8 @@
 #define	BLINKER_PRINT	Serial
 
-#define	BLINKER_PIN		21
-#define	BLINKER_ON		LOW
-#define	BLINKER_OFF		HIGH
+#define	BLINKER_PIN		BUILTIN_LED
+#define	BLINKER_ON		HIGH
+#define	BLINKER_OFF		LOW
 
 #include <BlinkerSimpleESP32_BLE.h>
 
