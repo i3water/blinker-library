@@ -1,12 +1,7 @@
-#define BLINKER_PRINT	Serial
+#define	BLINKER_PRINT	Serial
+#define BLINKER_BLE
 
-#include <SoftwareSerial.h>
-
-#define SBLE_RX_PIN		2
-#define SBLE_TX_PIN		3
-SoftwareSerial SerialBLE(SBLE_RX_PIN, SBLE_TX_PIN);
-
-#include <BlinkerSimpleSerialBLE.h>
+#include <Blinker.h>
 
 void setup()
 {
@@ -14,9 +9,8 @@ void setup()
 
 	pinMode(LED_BUILTIN, OUTPUT);
 	digitalWrite(LED_BUILTIN, LOW);
-
-	SerialBLE.begin(9600);
-	Blinker.begin(SerialBLE);
+	
+	Blinker.begin();
 }
 
 void loop()
@@ -27,7 +21,7 @@ void loop()
 		BLINKER_LOG2("Blinker.readString(): ", Blinker.readString());
 
 		Blinker.vibrate();
-
+		
 		uint32_t BlinkerTime = millis();
 		Blinker.print(BlinkerTime);
 		Blinker.print("millis", BlinkerTime);

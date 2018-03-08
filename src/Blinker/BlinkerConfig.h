@@ -33,12 +33,20 @@
 
 #define BLINKER_CMD_VIBRATE             "vibrate"
 
-#define BLINKER_CMD_BUTTON_PRESSED      "Pressed"
+#define BLINKER_CMD_BUTTON_PRESSED      "pressed"
 
-#define BLINKER_CMD_BUTTON_RELEASED     "Released"
+#define BLINKER_CMD_BUTTON_RELEASED     "released"
 
 #define BLINKER_CMD_NEWLINE             "\n"
 
 #define BLINKER_JOYSTICK_VALUE_DEFAULT  128
+
+#if defined(BLINKER_SERIAL_BLE)
+#define SERIAL_BLE_RX_PIN               2
+
+#define SERIAL_BLE_TX_PIN               3
+
+#define SERIAL_BLE_Baud                 9600
+#endif
 
 #endif

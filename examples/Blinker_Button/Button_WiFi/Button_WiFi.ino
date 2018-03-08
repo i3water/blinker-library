@@ -1,6 +1,10 @@
 #define	BLINKER_PRINT	Serial
+#define BLINKER_WIFI
 
-#include <BlinkerSimpleESP32_BLE.h>
+#include <Blinker.h>
+
+char ssid[] = "<Your WiFi network SSID or name>";
+char pswd[] = "<Your WiFi network WPA password or WEP key>";
 
 void setup()
 {
@@ -9,7 +13,7 @@ void setup()
 	pinMode(LED_BUILTIN, OUTPUT);
 	digitalWrite(LED_BUILTIN, LOW);
 
-	Blinker.begin();
+	Blinker.begin(ssid, pswd);
 }
 
 void loop()

@@ -33,10 +33,9 @@ Blinker.begin(...);
 ```
 Choose different parameters based on the type of connection you use  
   
-SerialBLE:
+BLE:
 ```
-SerialBLE.begin(9600);  
-Blinker.begin(SerialBLE);
+Blinker.begin();
 ```
 WiFi:
 ```
@@ -170,10 +169,9 @@ Blinker.begin(...);
 根据你使用的连接方式选择不同的参数用于配置Blinker  
   
 
-蓝牙透传模块:
+蓝牙模块:
 ```
-SerialBLE.begin(9600);  
-Blinker.begin(SerialBLE);
+Blinker.begin();
 ```
 WiFi模块:
 ```

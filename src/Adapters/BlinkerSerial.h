@@ -1,7 +1,12 @@
 #ifndef BlinkerSerial_H
 #define BlinkerSerial_H
 
+#define BLINKER_SERIAL_BLE
+
+#include <SoftwareSerial.h>
 #include <Blinker/BlinkerProtocol.h>
+
+SoftwareSerial SerialBLE(SERIAL_BLE_RX_PIN, SERIAL_BLE_TX_PIN);
 
 class BlinkerTransportStream
 {
@@ -59,7 +64,7 @@ class BlinkerTransportStream
         bool connected() { return isConnect; }
 
         void disconnect() { isConnect = false; }
-    
+
     protected :
         Stream* stream;
         char    streamData[BLINKER_BUFFER_SIZE];
@@ -76,10 +81,11 @@ class BlinkerSerail
             : Base(transp)
         {}
 
-        void begin(Stream& stream)
+        void begin()
         {
             Base::begin();
-            this->conn.begin(stream);
+            SerialBLE.begin(SERIAL_BLE_Baud);
+            this->conn.begin(SerialBLE);
             BLINKER_LOG1("SerialBLE Initialled...");
         }
 };
