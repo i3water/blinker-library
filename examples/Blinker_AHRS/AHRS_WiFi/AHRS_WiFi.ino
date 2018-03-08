@@ -14,6 +14,7 @@ void setup()
 	digitalWrite(LED_BUILTIN, LOW);
 
 	Blinker.begin(ssid, pswd);
+    Blinker.attachAhrs();
 }
 
 void loop()

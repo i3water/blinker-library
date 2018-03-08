@@ -35,11 +35,21 @@ Choose different parameters based on the type of connection you use
   
 BLE:
 ```
-Blinker.begin();
+#define BLINKER_BLE  
+#include <Blinker.h>  
+  
+void setup() {  
+    Blinker.begin();  
+}
 ```
 WiFi:
 ```
-Blinker.begin(ssid, pswd);
+#define BLINKER_WIFI  
+#include <Blinker.h>  
+  
+void setup() {  
+    Blinker.begin(ssid, pswd);  
+}
 ```
 **begin()** is basically doing these steps:  
 1.Configure hardware  
@@ -171,11 +181,21 @@ Blinker.begin(...);
 
 蓝牙模块:
 ```
-Blinker.begin();
+#define BLINKER_BLE  
+#include <Blinker.h>  
+  
+void setup() {  
+    Blinker.begin();  
+}
 ```
 WiFi模块:
 ```
-Blinker.begin(ssid, pswd);
+#define BLINKER_WIFI  
+#include <Blinker.h>  
+  
+void setup() {  
+    Blinker.begin(ssid, pswd);  
+}
 ```
 **begin()** 主要完成以下配置:  
 1.初始化硬件设置;  

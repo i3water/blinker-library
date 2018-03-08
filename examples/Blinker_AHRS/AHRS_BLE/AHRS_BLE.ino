@@ -11,7 +11,7 @@ void setup()
 	digitalWrite(LED_BUILTIN, LOW);
 	
 	Blinker.begin();
-    Blinker.attachAhrs();
+	Blinker.attachAhrs();
 }
 
 void loop()
