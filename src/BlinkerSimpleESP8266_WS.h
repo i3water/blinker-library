@@ -65,6 +65,7 @@ class BlinkerSimpleESP8266_WS
         {
             Base::begin();
             connectWiFi(ssid, pswd);
+            BLINKER_LOG1("ESP8266_WiFi Initialled...");
         }
     
     // private :

@@ -1,12 +1,11 @@
 #define BLINKER_PRINT	Serial
-#define BLINKER_WIFI
-
-#define BUTTON_1		"ButtonKey"
+#define BLINKER_BLE
 
 #include <Blinker.h>
 
-char ssid[] = "<Your WiFi network SSID or name>";
-char pswd[] = "<Your WiFi network WPA password or WEP key>";
+#include <modules/Ultrasonic.h>
+
+Ultrasonic SR04(9,8);
 
 void setup()
 {
@@ -14,8 +13,8 @@ void setup()
 
 	pinMode(LED_BUILTIN, OUTPUT);
 	digitalWrite(LED_BUILTIN, LOW);
-
-	Blinker.begin(ssid, pswd);
+	
+	Blinker.begin();
 }
 
 void loop()
@@ -32,10 +31,9 @@ void loop()
 		Blinker.print("millis", BlinkerTime);
 	}
 
-	if (Blinker.button(BUTTON_1)) {
-		digitalWrite(LED_BUILTIN, HIGH);
-	}
-	else {
-		digitalWrite(LED_BUILTIN, LOW);
-	}
+    BLINKER_LOG3("SR04: ", SR04.Ranging(CM), " cm");
+
+    Blinker.print("SR04", SR04.Ranging(CM));
+
+    Blinker.delay(1000);
 }

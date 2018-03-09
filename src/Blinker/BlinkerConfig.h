@@ -41,12 +41,4 @@
 
 #define BLINKER_JOYSTICK_VALUE_DEFAULT  128
 
-#if defined(BLINKER_SERIAL_BLE)
-#define SERIAL_BLE_RX_PIN               2
-
-#define SERIAL_BLE_TX_PIN               3
-
-#define SERIAL_BLE_Baud                 9600
-#endif
-
 #endif

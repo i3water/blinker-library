@@ -65,6 +65,7 @@ class BlinkerSimpleESP32_WS
         {
             Base::begin();
             connectWiFi(ssid, pswd);
+            BLINKER_LOG1("ESP32_WiFi Initialled...");
         }
     
     // private :
