@@ -108,10 +108,16 @@ Prints data to Blinker app
 ```
 Blinker.print(data);
 ```
-Prints a Json data to Blinkrt app, eg: {text1:data}
+Prints a Json data to Blinkrt app, eg: {"temp":30.2}
 ```
-Blinker.print(text1, data);
+Blinker.print("temp", 30.2);
 ```  
+Prints a Json data with unit to Blinkrt app, eg: {"temp":"30.2 °C"}
+```
+Blinker.print("temp", 30.2, "°C");
+```
+>Json data can display in the Blinker TEXT widget  
+
 ## App Widgets
 ### Blinker.button() 
 Device receives an update of **Button** state from app, return true when **Pressed**, return false when **Released**.
@@ -263,6 +269,12 @@ Blinker.print(data);
 ```
 Blinker.print(text1, data);
 ```  
+发送一个带单位的Json数据, eg: {"temp":"30.2 °C"}
+```
+Blinker.print("temp", 30.2, "°C");
+```
+>发送的Json数据可以在 Blinker APP 的 TEXT 组件中显示  
+
 ## App Widgets
 ### Blinker.button() 
 读取开关/按键数据, 按下(Pressed)时返回true, 松开(Released)时返回false

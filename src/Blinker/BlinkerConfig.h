@@ -39,6 +39,8 @@
 
 #define BLINKER_CMD_NEWLINE             "\n"
 
+#define BLINKER_CMD_INTERSPACE          " "
+
 #define BLINKER_JOYSTICK_VALUE_DEFAULT  128
 
 #endif

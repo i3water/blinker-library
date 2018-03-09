@@ -62,26 +62,26 @@ class BlinkerProtocol
             }
         }
         
-        void print(const String &s)     { conn.print(s + BLINKER_CMD_NEWLINE); }
-        void print(const char str[])    { print(STRING_format(str)); }
-        void print(char c)              { print(STRING_format(c)); }
-        void print(unsigned char b)     { print(STRING_format(b)); }
-        void print(int n)               { print(STRING_format(n)); }
-        void print(unsigned int n)      { print(STRING_format(n)); }
-        void print(long n)              { print(STRING_format(n)); }
-        void print(unsigned long n)     { print(STRING_format(n)); }
-        void print(double n)            { print(STRING_format(n)); }
-        void print()                    { print(""); }
-        void println(const String &s)   { print(s); }
-        void println(const char str[])  { print(str); }
-        void println(char c)            { print(c); }
-        void println(unsigned char b)   { print(b); }
-        void println(int n)             { print(n); }
-        void println(unsigned int n)    { print(n); }
-        void println(long n)            { print(n); }
-        void println(unsigned long n)   { print(n); }
-        void println(double n)          { print(n); }
-        void println()                  { print(); }
+        template <typename T>
+        void print(T n)                     { conn.print(STRING_format(n) + BLINKER_CMD_NEWLINE); }
+        void print()                        { print(""); }
+        
+        template <typename T>
+        void println(T n)                   { print(n); }
+        void println()                      { print(); }
+
+        template <typename T1, typename T2, typename T3>
+        void print(T1 n1, T2 n2, T3 n3)     { print("{\"" + STRING_format(n1) + "\":\"" + STRING_format(n2) + BLINKER_CMD_INTERSPACE + STRING_format(n3) + "\"}"); }
+        
+        template <typename T1, typename T2, typename T3>
+        void println(T1 n1, T2 n2, T3 n3)   { print("{\"" + STRING_format(n1) + "\":\"" + STRING_format(n2) + BLINKER_CMD_INTERSPACE + STRING_format(n3) + "\"}"); }
+
+        // template <typename T1, typename T2>
+        // void print(T1 n1, T2 n2)            { print("{\"" + STRING_format(n1) + "\":\"" + STRING_format(n2) + "\"}"); }
+        
+        // template <typename T1, typename T2>
+        // void println(T1 n1, T2 n2)          { print("{\"" + STRING_format(n1) + "\":\"" + STRING_format(n2) + "\"}"); }
+        
         void print(const String &s1, const String &s2)      { print("{\"" + s1 + "\":\"" + s2 + "\"}"); }
         void print(const char str1[], const char str2[])    { print("{\"" + STRING_format(str1) + "\":\"" + STRING_format(str2) + "\"}"); }
         void print(const char str[], char c)                { print("{\"" + STRING_format(str) + "\":" + STRING_format(c) + "}"); }
@@ -100,7 +100,7 @@ class BlinkerProtocol
         void println(const char str[], long n)              { print(str, n); }
         void println(const char str[], unsigned long n)     { print(str, n); }
         void println(const char str[], double n)            { print(str, n); }
-
+        
         void flush() {
             isFresh = false;
         }
