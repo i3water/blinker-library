@@ -33,9 +33,6 @@ void loop()
 	}
 
 	if (Blinker.button(BUTTON_1)) {
-		digitalWrite(LED_BUILTIN, HIGH);
-	}
-	else {
-		digitalWrite(LED_BUILTIN, LOW);
+		digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
 	}
 }

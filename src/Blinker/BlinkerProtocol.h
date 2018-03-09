@@ -101,6 +101,10 @@ class BlinkerProtocol
         void println(const char str[], unsigned long n)     { print(str, n); }
         void println(const char str[], double n)            { print(str, n); }
 
+        void flush() {
+            isFresh = false;
+        }
+
     private :
         bool checkAvail()
         {
@@ -165,11 +169,9 @@ void BlinkerProtocol<Transp>::run()
     switch (state)
     {
         case CONNECTING :
-            // while (state == CONNECTING) {
-                if (conn.connect()) {
-                    state = CONNECTED;
-                }
-            // }
+            if (conn.connect()) {
+                state = CONNECTED;
+            }
             break;
         case CONNECTED :
             if (conState) {

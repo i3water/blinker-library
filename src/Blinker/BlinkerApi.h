@@ -84,11 +84,12 @@ class BlinkerApi
                 _fresh = false;
 
                 for (uint8_t bNum = 0; bNum < _bCount; bNum++) {
-                    button(_Button[bNum]->getName());
+                    buttonParse(_Button[bNum]->getName());
                 }
                 for (uint8_t sNum = 0; sNum < _sCount; sNum++) {
                     slider(_Slider[sNum]->getName());
                 }
+
                 joystick(J_Xaxis);
                 ahrs(Yaw);
 
@@ -145,7 +146,10 @@ class BlinkerApi
                     return false;
                 }
 
-                return _Button[num]->getState();;
+                bool _state = _Button[num]->getState();
+                _Button[num]->freshState(false);
+
+                return _state;
             }
         }
 
@@ -294,6 +298,57 @@ class BlinkerApi
         uint8_t joyValue[2];
         int16_t ahrsValue[3];
         bool    _fresh = false;
+
+        bool buttonParse(const String & _bName)
+        {
+            int8_t num = checkNum(_bName, _Button, _bCount);
+            String state = STRING_find_string_value(static_cast<Proto*>(this)->dataParse(), _bName);
+
+            if (state == BLINKER_CMD_BUTTON_PRESSED) {
+                if( num == BLINKER_OBJECT_NOT_AVAIL ) {
+                    if ( _bCount < BLINKER_MAX_WIDGET_SIZE ) {
+                        _Button[_bCount] = new BlinkerButton();
+                        _Button[_bCount]->name(_bName);
+                        _Button[_bCount]->freshState(true);
+                        _bCount++;
+                    }
+                }
+                else {
+                    _Button[num]->freshState(true);
+                }
+
+                _fresh = true;
+                return true;
+            }
+            else if (state == BLINKER_CMD_BUTTON_RELEASED) {
+                if( num == BLINKER_OBJECT_NOT_AVAIL ) {
+                    if ( _bCount < BLINKER_MAX_WIDGET_SIZE ) {
+                        _Button[_bCount] = new BlinkerButton();
+                        _Button[_bCount]->name(_bName);
+                        _Button[_bCount]->freshState(false);
+                        _bCount++;
+                    }
+                }
+                else {
+                    _Button[num]->freshState(false);
+                }
+
+                _fresh = true;
+                return false;
+            }
+            else {
+                if( num == BLINKER_OBJECT_NOT_AVAIL ) {
+                    if ( _bCount < BLINKER_MAX_WIDGET_SIZE ) {
+                        _Button[_bCount] = new BlinkerButton();
+                        _Button[_bCount]->name(_bName);
+                        _bCount++;
+                    }
+                    return false;
+                }
+
+                return _Button[num]->getState();;
+            }
+        }
 };
 
 #endif

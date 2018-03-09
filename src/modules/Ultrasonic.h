@@ -11,7 +11,6 @@ class Ultrasonic
 {
     public:
         Ultrasonic(uint8_t TP, uint8_t EP, uint32_t TO = 30000);
-        // 3000 µs = 50cm // 30000 µs = 5 m 
         uint32_t cm();
         uint32_t inch();
 
