@@ -8,7 +8,7 @@ char pswd[] = "<Your WiFi network WPA password or WEP key>";
 
 #include <modules/Ultrasonic.h>
 
-Ultrasonic SR04(9,8);
+Ultrasonic SR04(9, 8);// Trig, Echo
 
 void setup()
 {
@@ -34,9 +34,9 @@ void loop()
 		Blinker.print("millis", BlinkerTime);
 	}
 
-    BLINKER_LOG3("SR04: ", SR04.Ranging(CM), " cm");
+    BLINKER_LOG3("SR04: ", SR04.cm(), " cm");
 
-    Blinker.print("SR04", SR04.Ranging(CM));
+    Blinker.print("SR04", SR04.cm());
 
     Blinker.delay(1000);
 }
