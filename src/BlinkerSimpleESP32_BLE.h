@@ -110,6 +110,7 @@ class BlinkerTransportESP32_BLE
         char                    BLEBuf[BLINKER_BUFFER_SIZE];
         bool                    isAvail;
         bool                    isFresh;
+        uint32_t                _bufLen;
         uint32_t                freshTime;
         BLEServer               *pServer;
         BLEService              *pService;
@@ -133,20 +134,21 @@ class BlinkerTransportESP32_BLE
 
         void onWrite(BLECharacteristic *pCharacteristic) {
             std::string value = pCharacteristic->getValue();
+            int vlen = value.length();
 
-            if (value.length() > 0) {
+            if (vlen > 0) {
                 freshTime = millis();
 
-                if (!isFresh) {
-                    strcpy(BLEBuf, value.c_str());
-                    isFresh = true;
-                }
-                else {
-                    strcat(BLEBuf, value.c_str());
+                for (uint8_t _num = 0; _num < vlen; _num++) {
+                    BLEBuf[_bufLen] = value[_num];
+                    _bufLen++;
                 }
 
-                if (String(value.c_str()).endsWith("\n")) {
+                isFresh = true;
+
+                if (value[vlen-1] == '\n') {
                     isAvail = true;
+                    _bufLen = 0;
                 }
             }
         }
@@ -154,6 +156,7 @@ class BlinkerTransportESP32_BLE
         void checkTimeOut() {
             if (isFresh && !isAvail && (millis() - freshTime) > BLINKER_STREAM_TIMEOUT) {
                 isAvail = true;
+                _bufLen = 0;
             }
         }
 };

@@ -24,6 +24,7 @@ class BlinkerProtocol
             , state(CONNECTING)
             , isFresh(false)
             , isAvail(false)
+            , availState(false)
             , canParse(false)
         {}
 
@@ -49,7 +50,11 @@ class BlinkerProtocol
 
         void run();
 
-        bool available() { return isFresh; }
+        bool available() {
+            bool _avail = availState;
+            availState = false;
+            return _avail;
+        }
 
         String readString()
         {
@@ -103,6 +108,7 @@ class BlinkerProtocol
         
         void flush() {
             isFresh = false;
+            availState = false;
         }
 
     private :
@@ -112,6 +118,7 @@ class BlinkerProtocol
             if (isAvail) {
                 isFresh = true;
                 canParse = true;
+                availState = true;
             }
             return isAvail;
         }
@@ -126,7 +133,7 @@ class BlinkerProtocol
             }
         }
 
-        void isParsed() { isFresh = false; canParse = false; }// BLINKER_LOG1("isParsed");
+        void isParsed() { isFresh = false; canParse = false; availState = false; }// BLINKER_LOG1("isParsed");
 
         bool parseState() { return canParse; }
 
@@ -135,6 +142,7 @@ class BlinkerProtocol
         BlinkerState    state;
         bool            isFresh;
         bool            isAvail;
+        bool            availState;
         bool            canParse;
         
         void begin()
