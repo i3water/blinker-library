@@ -15,6 +15,11 @@ class BlinkerTransportStream
 
         bool available()
         {
+            if (!SerialBLE->isListening()) {
+                SerialBLE->listen();
+                ::delay(100);
+            }
+            
             if (stream->available()) {
                 strcpy(streamData, (stream->readString()).c_str());
 #ifdef BLINKER_DEBUG_ALL
