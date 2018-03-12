@@ -21,7 +21,7 @@
     #endif
 
     #if (defined(__AVR__))
-        #include <avr\pgmspace.h>
+        #include <avr/pgmspace.h>
     #else if
         #include <pgmspace.h>
     #endif
