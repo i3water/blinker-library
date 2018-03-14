@@ -94,7 +94,7 @@ bool STRING_contais_string(const String & src, const String & key)
     return key == src.substring(addr_start, addr_start + keyLen);
 }
 
-String STRING_find_string_value(const String & src, const String & key)
+bool STRING_find_string_value(const String & src,String & dst, const String & key)
 {
     int addr_start = src.indexOf(key);
     uint8_t keyLen = key.length();
@@ -102,10 +102,11 @@ String STRING_find_string_value(const String & src, const String & key)
     int addr_end = src.indexOf(STRING_VALUE_END, addr_start + keyLen + STRING_VALUE_SKIP);
     
     if (addr_start == -1 || addr_end == -1) {
-        return "";
+        return false;
     }
     else {
-        return src.substring(addr_start + keyLen + STRING_VALUE_SKIP, addr_end);
+        dst = src.substring(addr_start + keyLen + STRING_VALUE_SKIP, addr_end);
+        return true;
     }
 }
 

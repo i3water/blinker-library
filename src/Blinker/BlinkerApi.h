@@ -102,9 +102,9 @@ class BlinkerApi
         bool button(const String & _bName)
         {
             int8_t num = checkNum(_bName, _Button, _bCount);
-            String state = STRING_find_string_value(static_cast<Proto*>(this)->dataParse(), _bName);
+            String state;
 
-            if (state != "") {
+            if (STRING_find_string_value(static_cast<Proto*>(this)->dataParse(), state, _bName)) {
                 _fresh = true;
             }
 
@@ -306,9 +306,9 @@ class BlinkerApi
         bool buttonParse(const String & _bName)
         {
             int8_t num = checkNum(_bName, _Button, _bCount);
-            String state = STRING_find_string_value(static_cast<Proto*>(this)->dataParse(), _bName);
+            String state;
 
-            if (state != "") {
+            if (STRING_find_string_value(static_cast<Proto*>(this)->dataParse(), state, _bName)) {
                 _fresh = true;
             }
 
