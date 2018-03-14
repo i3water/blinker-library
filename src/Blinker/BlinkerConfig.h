@@ -33,6 +33,8 @@
 
 #define BLINKER_CMD_VIBRATE             "vibrate"
 
+#define BLINKER_CMD_BUTTON_TAP          "tap"
+
 #define BLINKER_CMD_BUTTON_PRESSED      "pressed"
 
 #define BLINKER_CMD_BUTTON_RELEASED     "released"

@@ -139,6 +139,10 @@ class BlinkerTransportESP32_BLE
             if (vlen > 0) {
                 freshTime = millis();
 
+                if (_bufLen == 0) {
+                    memset(BLEBuf, '\0', BLINKER_BUFFER_SIZE);
+                }
+
                 for (uint8_t _num = 0; _num < vlen; _num++) {
                     BLEBuf[_bufLen] = value[_num];
                     _bufLen++;

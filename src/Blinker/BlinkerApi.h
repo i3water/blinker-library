@@ -104,7 +104,11 @@ class BlinkerApi
             int8_t num = checkNum(_bName, _Button, _bCount);
             String state = STRING_find_string_value(static_cast<Proto*>(this)->dataParse(), _bName);
 
-            if (state == BLINKER_CMD_BUTTON_PRESSED) {
+            if (state != "") {
+                _fresh = true;
+            }
+
+            if (state == BLINKER_CMD_BUTTON_PRESSED || state == BLINKER_CMD_BUTTON_TAP) {
                 if( num == BLINKER_OBJECT_NOT_AVAIL ) {
                     if ( _bCount < BLINKER_MAX_WIDGET_SIZE ) {
                         _Button[_bCount] = new BlinkerButton();
@@ -304,7 +308,11 @@ class BlinkerApi
             int8_t num = checkNum(_bName, _Button, _bCount);
             String state = STRING_find_string_value(static_cast<Proto*>(this)->dataParse(), _bName);
 
-            if (state == BLINKER_CMD_BUTTON_PRESSED) {
+            if (state != "") {
+                _fresh = true;
+            }
+
+            if (state == BLINKER_CMD_BUTTON_PRESSED || state == BLINKER_CMD_BUTTON_TAP) {
                 if( num == BLINKER_OBJECT_NOT_AVAIL ) {
                     if ( _bCount < BLINKER_MAX_WIDGET_SIZE ) {
                         _Button[_bCount] = new BlinkerButton();
@@ -346,7 +354,7 @@ class BlinkerApi
                     return false;
                 }
 
-                return _Button[num]->getState();;
+                return _Button[num]->getState();
             }
         }
 };
