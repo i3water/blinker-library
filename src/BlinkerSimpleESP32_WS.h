@@ -53,6 +53,8 @@ class BlinkerSimpleESP32_WS
 
             BLINKER_LOG1("IP Address: ");
             BLINKER_LOG1(WiFi.localIP());
+
+            mDNSInit();
         }
 #endif
 
