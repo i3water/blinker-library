@@ -50,7 +50,7 @@ void setup() {
 ```  
 
 >SerialBLE Modules:  
->**Blinker.begin()** will config SoftWareSerial with default settings.  
+>**Blinker.begin()** will config Serial with default settings.  
 >  
 >Blinker.begin();// default settings digital pins 2(RX) 3(TX) and baudrate 9600 bps  
 >Blinker.begin(4, 5);// config digital pins 4(RX) 5(TX) with default baudrate 9600 bps  
@@ -201,6 +201,13 @@ String result_LAT = Blinker.gps(LAT);
 > LONG for longitude  
 > LAT for latitude  
 
+### Blinker.rgb()
+Return the latest update of **RGB** value from app
+```
+uint8_t result_R = Blinker.rgb(R);  
+uint8_t result_G = Blinker.rgb(G);  
+uint8_t result_B = Blinker.rgb(B);
+```
 ### Blinker.vibrate()
 Send vibrate commond to Blinker, default vibration time is 500 milliseconds
 ```
@@ -286,7 +293,7 @@ void setup() {
 ```  
   
 >串口蓝牙模块:  
->**Blinker.begin()** 将使用默认设置配置 SoftWareSerial   
+>**Blinker.begin()** 将使用默认设置配置 Serial   
 >  
 >Blinker.begin();// 默认设置: 数字IO 2(RX) 3(TX), 波特率 9600 bps  
 >Blinker.begin(4, 5);// 设置数字IO 4(RX) 5(TX), 默认波特率 9600 bps  
@@ -434,6 +441,13 @@ String result_LAT = Blinker.gps(LAT);
 > LONG 经度  
 > LAT 维度  
 
+### Blinker.rgb()
+读取 **RGB** 数据
+```
+uint8_t result_R = Blinker.rgb(R);
+uint8_t result_G = Blinker.rgb(G);
+uint8_t result_B = Blinker.rgb(B);
+```
 ### Blinker.vibrate()
 发送手机振动指令, 震动时间, 单位ms 毫秒, 数值范围0-1000, 默认为500
 ```
