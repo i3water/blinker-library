@@ -246,7 +246,7 @@ void BlinkerMQTT::connectServer() {
         // file found at server
         if (httpCode == HTTP_CODE_OK) {
             payload = http.getString();
-            BLINKER_LOG1(payload);
+            // BLINKER_LOG1(payload);
         }
     }
     else {
@@ -373,9 +373,9 @@ bool BlinkerMQTT::connect() {
         return false;
     }
 
-#ifdef BLINKER_DEBUG_ALL
+// #ifdef BLINKER_DEBUG_ALL
     BLINKER_LOG1("Connecting to MQTT... ");
-#endif
+// #endif
 
     if ((ret = mqtt->connect()) != 0) {
         BLINKER_LOG1(mqtt->connectErrorString(ret));
@@ -384,9 +384,9 @@ bool BlinkerMQTT::connect() {
         this->latestTime = millis();
         return false;
     }
-#ifdef BLINKER_DEBUG_ALL
+// #ifdef BLINKER_DEBUG_ALL
     BLINKER_LOG1("MQTT Connected!");
-#endif
+// #endif
 
     this->latestTime = millis();
 
@@ -418,6 +418,14 @@ void BlinkerMQTT::subscribe() {
             String dataGet = String((char *)iotSub->lastread);
 
             String _uuid = STRING_find_string(dataGet, "fromDevice", "\"", 3);
+
+            dataGet = STRING_find_string(dataGet, "data", ",\"", 2);
+
+            if (dataGet.indexOf("\"") != -1 && dataGet.indexOf("\"") == 0) {
+                dataGet = STRING_find_string(dataGet, "\"", "\"", 0);
+            }
+
+            // BLINKER_LOG2("data: ", dataGet);
 #ifdef BLINKER_DEBUG_ALL
             BLINKER_LOG2("fromDevice: ", _uuid);
 #endif
@@ -434,7 +442,7 @@ void BlinkerMQTT::subscribe() {
             }
 
             memset(msgBuf, 0, BLINKER_MAX_READ_SIZE);
-            memcpy(msgBuf, (char *)iotSub->lastread, iotSub->datalen);
+            memcpy(msgBuf, dataGet.c_str(), dataGet.length());
             
             this->latestTime = millis();
             kaTime = millis();
@@ -458,6 +466,8 @@ void BlinkerMQTT::print(String data, bool state) {
 #ifdef BLINKER_DEBUG_ALL
         BLINKER_LOG1("MQTT Publish...");
 #endif
+        bool _alive = isAlive;
+
         if (state) {
             isAlive = true;
         }
@@ -474,6 +484,10 @@ void BlinkerMQTT::print(String data, bool state) {
                     BLINKER_LOG2(payload, ("...OK!"));
 #endif
                     printTime = millis();
+                }
+
+                if (!_alive) {
+                    isAlive = false;
                 }
             }
             else {
